@@ -5,27 +5,18 @@ class UltimateTicTacToe:
         #---------------------
         #top
         topLeft = TicTacToe()
-        # topLeft.reset("0")
         topMiddle = TicTacToe()
-        # topMiddle.reset("1")
         topRight = TicTacToe()
-        # topRight.reset("2")
         #---------------------
         #middle
         middleLeft = TicTacToe()
-        # middleLeft.reset("3")
         middleMiddle = TicTacToe()
-        # middleMiddle.reset("4")
         middleRight = TicTacToe()
-        # middleRight.reset("5")
         #---------------------
         #bottom
         bottomLeft = TicTacToe()
-        # bottomLeft.reset("6")
         bottomMiddle = TicTacToe()
-        # bottomMiddle.reset("7")
         bottomRight = TicTacToe()
-        # bottomRight.reset("8")
         #---------------------
         #array of these TicTacToe objects
         self.boardArray = [
@@ -130,4 +121,15 @@ class UltimateTicTacToe:
     #------------------------------
     def printWinnerMatrix(self):
         self.winnerMatrix.printBoard()
+    #------------------------------
+    def make_best_move(self, general_pos):
+        #get (i, j) position of appropriate 3 x 3 board
+        pair = self.hashTable[general_pos]
+        I = pair[0]
+        J = pair[1]
+        move = self.boardArray[I][J].ai("o")
+        #return the region (i.e. "tr") based off of move (i.e. (0,2))
+        for key, val in self.hashTable.items():
+            if val == move:
+                return key
     #------------------------------
