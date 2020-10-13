@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-
-from Driver import *
+from Driver import Driver
 """Ultimate Tic Tac Toe board game
     - it is a large tic tac toe with 9 slots, per usual,
     - with individual, tic tac toe games going on in each slot
