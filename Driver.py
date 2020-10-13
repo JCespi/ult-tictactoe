@@ -14,7 +14,7 @@ class Driver:
         #present options
         modes = [1, 2, 3]
         mode = input("Please enter a mode: ")
-        while mode not in modes:
+        while int(mode) not in modes:
             mode = input("Please try again. Enter a 1, 2, or 3.")
         #choose the appropriate game
         if mode == "1":
@@ -38,9 +38,9 @@ class Driver:
         print("         ╰┅┅┅┅┅┅┅╯  ╰┅┅┅┅┅┅╯  ╰┅┅┅┅┅╯      ╰┅┅┅┅┅┅┅╯  ╰┅┅┅┅┅╯┅╯  ╰┅┅┅┅┅╯      ╰┅┅┅┅┅┅┅╯  ╰┅┅┅┅┅╯  ╰┅┅┅┅┅┅┅╯ ")
         print("Welcome to Tic Tac Toe")
         print("----------------------")
-        print("1. Play against a friend")
-        print("2. Play against your computer")
-        print("3. Quit")
+        print("     1. Play against a friend")
+        print("     2. Play against your computer")
+        print("     3. Quit")
     #----------------------------------
     def multiplayer(self):
         #assign x and o
@@ -69,7 +69,7 @@ class Driver:
                 #the game might end
                 if specific_pos == "finish":
                     print("Great game!")
-                    ultimateBoard.winnerMatrix.printBoard()
+                    self.board.winnerMatrix.printBoard()
                     break
                 #the curr player might not be able to move
                 if specific_pos == "forfeit":
@@ -111,7 +111,7 @@ class Driver:
             specific_pos = input(" ► Which more specific region? ")
             #ensure we are given a valid move
             if specific_pos.lower() in self.pos_list:
-                outcome = board.makeMove(character, general_pos, specific_pos)
+                outcome = self.board.makeMove(character, general_pos, specific_pos)
                 #the general_pos board is full so the turn is forefeited
                 if outcome == "full":
                     print(" Sorry but you forfeit your turn")
