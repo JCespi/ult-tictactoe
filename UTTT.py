@@ -124,12 +124,36 @@ class UltimateTicTacToe:
     #------------------------------
     def make_best_move(self, general_pos):
         #get (i, j) position of appropriate 3 x 3 board
-        pair = self.hashTable[general_pos]
+        pair = self.hashTable[general_pos.upper()]
         I = pair[0]
         J = pair[1]
         move = self.boardArray[I][J].ai("o")
-        #return the region (i.e. "tr") based off of move (i.e. (0,2))
-        for key, val in self.hashTable.items():
-            if val == move:
-                return key
+        #check for a winner
+        check = self.boardArray[I][J].checkIfWinner()
+        def get_str_from_indices(move):
+            "move is a tuple of form (row, column)"
+            row = move[0]
+            col = move[1]
+            if row == 0 and col == 0:
+                return "tl"
+            elif row == 0 and col == 1:
+                return "tm"
+            elif row == 0 and col == 2:
+                return "tr"
+            elif row == 1 and col == 0:
+                return "ml"
+            elif row == 1 and col == 1:
+                return "mm"
+            elif row == 1 and col == 2:
+                return "mr"   
+            elif row == 2 and col == 0:
+                return "bl"
+            elif row == 2 and col == 1:
+                return "bm"
+            elif row == 2 and col == 2:
+                return "br"     
+        specific_pos = get_str_from_indices(move)
+        if check == "o":
+            self.winnerMatrix.makeMove("o", specific_pos)
+        return specific_pos
     #------------------------------

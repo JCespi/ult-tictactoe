@@ -139,7 +139,7 @@ class Driver:
     #----------------------------------
     def singleplayer(self):
         print("▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ \n")
-        print("You will be x, and your computer will be o")
+        print("You will be x, and your computer will be o\n")
 
         #print the initial, blank board
         self.board.printUltimateBoard()

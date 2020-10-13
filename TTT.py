@@ -210,7 +210,7 @@ class TicTacToe:
             for i in range(0, 3):
                 for j in range(0, 3):
                     if self.isSpotAvailable(i, j):
-                        self.board[i][j] = computer
+                        self.board[i][j] = "o"
                         score = self.miniMax(depth - 1, alpha, beta, False)
                         self.board[i][j] = " "
                         bestScore = max(score, bestScore)
@@ -225,7 +225,7 @@ class TicTacToe:
             for i in range(0, 3):
                 for j in range(0, 3):
                     if self.isSpotAvailable(i, j):
-                        self.board[i][j] = player
+                        self.board[i][j] = "x"
                         score = self.miniMax(depth - 1, alpha, beta, True)
                         self.board[i][j] = " "
                         bestScore = min(score, bestScore)
