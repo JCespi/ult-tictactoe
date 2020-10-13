@@ -138,5 +138,42 @@ class Driver:
         return specific_pos
     #----------------------------------
     def singleplayer(self):
-        pass
+        print("▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ ▅ \n")
+        print("You will be x, and your computer will be o")
+
+        #print the initial, blank board
+        self.board.printUltimateBoard()
+        #human player automatically goes first
+        xs_turn = True
+        general_pos = ""
+
+        #game loop
+        while True:
+            try:
+                #let human or ai make move
+                if xs_turn:
+                    specific_pos = self.make_move(general_pos, xs_turn)
+                else:
+                    specific_pos = self.board.make_best_move(general_pos)
+
+                #print the new board
+                self.board.printUltimateBoard()
+                #the game might end
+                if specific_pos == "finish":
+                    print("Great game!")
+                    self.board.winnerMatrix.printBoard()
+                    break
+                #the curr player might not be able to move
+                if specific_pos == "forfeit":
+                    specific_pos = ""
+                #curr player's specific position becomes next players general position
+                general_pos = specific_pos
+                xs_turn = not xs_turn
+                self.board.printWinnerMatrix() #print the general tic tac toe board
+            except EOFError:
+                print("")
+                break
+            except KeyboardInterrupt:
+                print("")
+                break;
     #----------------------------------
