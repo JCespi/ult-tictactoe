@@ -25,6 +25,7 @@ class TicTacToe:
                     "ML", "MM", "MR",
                     "BL", "BM", "BR"]
         self.hashTable = initializeHashTable(namesList)
+        self.maximizeOTable = {"o" : 1, "x" : -1, "tie" : 0 }
     #------------------------------
     def printBoard(self):
         print("A more general view: \n")
@@ -157,4 +158,81 @@ class TicTacToe:
                     return False
         else:
             return True
+    #------------------------------
+    def ai(self, char):
+        move = self.bestMove(char)
+        i = move[0]
+        j = move[1]
+        self.board[i][j] = char
+        return move
+    
+    def bestMove(self, char):
+        bestScore = float("-inf")
+        move = [0, 0]
+        for i in range(0, 3):
+            for j in range(0, 3):
+                #spot available?
+                if self.board[i][j] == " ":
+                    self.board[i][j] = char
+                    score = self.miniMax(-1, float("-inf"), float("inf"), False)
+                    #undo move
+                    self.board[i][j] = " "
+                    if score > bestScore:
+                        bestScore = score
+                        move[0] = i
+                        move[1] = j
+        return move
+    
+    def isSpotAvailable(self, i, j):
+        if self.board[i][j] == " ":
+            return True
+        else:
+            return False
+
+    def miniMax(self, depth, alpha, beta, isMaximizing):
+        #if current board state is a terminal state:
+            #return value of the board
+        winner = self.checkIfWinner()
+        if depth == 0 or winner:
+            if winner:   
+                #o (computer) is the maximizing
+                value = self.maximizeOTable[winner]
+                return value
+                
+            else:
+                if isMaximizing:
+                    return float("-inf")
+                else:
+                    return float("inf")
+
+        if isMaximizing:
+            bestScore = float("-inf")
+            for i in range(0, 3):
+                for j in range(0, 3):
+                    if self.isSpotAvailable(i, j):
+                        self.board[i][j] = computer
+                        score = self.miniMax(depth - 1, alpha, beta, False)
+                        self.board[i][j] = " "
+                        bestScore = max(score, bestScore)
+                        #------------------------
+                        alpha = max(alpha, score)
+                        if beta <= alpha:
+                            break
+                        #------------------------
+            return bestScore
+        else:
+            bestScore = float("inf")
+            for i in range(0, 3):
+                for j in range(0, 3):
+                    if self.isSpotAvailable(i, j):
+                        self.board[i][j] = player
+                        score = self.miniMax(depth - 1, alpha, beta, True)
+                        self.board[i][j] = " "
+                        bestScore = min(score, bestScore)
+                        #------------------------
+                        beta = min(beta, score)
+                        if beta <= alpha:
+                            break
+                        #------------------------
+            return bestScore
     #------------------------------
